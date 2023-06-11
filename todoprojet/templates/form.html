@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid" style="display: flex; justify-content: center; align-items: center; min-height: 500vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner" style=" background-color: red; text-algin:center;width: 100%;height: 100px;margin-bottom: 10px;margin-top: 10px;">
+             <div class="banner-text" style="top: 50%;left: 50%;position: absolute;transform: translate(-50%, -50%);">
+                    <h1 style="font-size: 32px; margin: 0;">ToDo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" class="p-3 shadow">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="task" placeholder="Enter your task">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="priority" placeholder="Enter the task priority">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control" name="date" placeholder="Enter the date">
+                </div>
+                <input type="submit" class="btn btn-success" value="Add Task">
+            </form>
+            <br>
+        </div>
+
+        <div class="col-md-6"style="top: 55%;left: 75%;position: absolute;transform: translate(-50%, -50%); padding:100px;margin-bottom: 20px;" >
+            <h4>Tasks to be Completed</h4>
+            {% for i in task %}
+            <div class="card">
+                <div class="card-body" >
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p>{{ i.priority }}</p><br>
+                    <p>{{ i.date }}</p><br>
+                    <a class="btn btn-primary my-2" href="{% url 'delete' i.id%}">Done</a>
+                    <a class="btn btn-danger" href="{% url 'update' i.id%}">Update</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}
